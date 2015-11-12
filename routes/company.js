@@ -66,7 +66,13 @@ router.get('/company-profile', function(req, res) {
   }
 });
 
-router.get('/all-jobs', function)
+router.get('/all-jobs', function(req, res) {
+	res.render('company-jobs');
+});
+
+router.get('/single-job', function(req, res) {
+	res.render('home');
+});
 
 
 module.exports = router;
