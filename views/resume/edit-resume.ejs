@@ -1,0 +1,55 @@
+<% layout('boilerplate') -%>
+
+
+
+<div class="row">
+  <div class="col-lg-6 col-md-offset-3">
+    <h1>Update your Resume</h1>
+
+
+	<!-- show any messages that come back with authentication -->
+	<% if (message.length > 0) { %>
+		<div class="alert alert-success alert-dismissible">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <%= message %>
+    </div>
+	<% } %>
+
+<br />
+<form role="form" method="post">
+  <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+  <div class="form-group">
+    <label for="fullname">Full Name:</label>
+    <input type="fullname" class="form-control" name="fullname" id="fullname" value="<%= user.resume.fullname %>">
+  </div>
+  <div class="form-group">
+    <label for="about">About less than 400 words!</label>
+    <input type="text" class="form-control" maxlength= "400" name="about" value="<%= user.resume.about %>"></input>
+  </div>
+
+
+  <div class="form-group">
+    <label for="education">Education:</label>
+    <% for(var i = 0; i < user.resume.educations.length; i++) { %>
+      <input type="hidden" type="hidden" name="education_id" value="<%= user.resume.educations[i]._id %>"/>
+      <input type="text" class="form-control" name="education_school" value="<%= user.resume.educations[i].school %>">
+    <% } %>
+  </div>
+
+
+  <div class="form-group">
+    <label for="education">Skills</label>
+
+    <% for(var i = 0; i < user.resume.skills.length; i++) { %>
+      <input type="hidden" type="hidden" name="skill_id" value="<%= user.resume.skills[i]._id %>"/>
+      <input type="text" class="form-control" name="skill_content" value="<%= user.resume.skills[i].content %>">
+    <% } %>
+
+  </div>
+
+  <button type="submit" class="btn btn-primary">Update</button>
+</form>
+<hr />
+
+</div>
+ </div>

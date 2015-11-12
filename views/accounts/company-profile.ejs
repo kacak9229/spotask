@@ -1,0 +1,58 @@
+<% layout('layout') -%>
+
+
+<div class="row">
+  <div class="col-md-3">
+
+    <img src="<%= user.profile.picture %>" class="img-rounded">
+  </div>
+
+  <div class="col-md-9">
+
+    <a class="btn btn-primary btn-lg" href="/create-job" style="margin-left: 87%">Post a job</a>
+    <br />
+    <br />
+
+    <div class="">
+      <h3>List of Jobs</h3>
+      <% for (var i = 0; i < jobs.length; i++) { %>
+        <%= jobs[i].title %>
+
+      <% } %>
+    </div>
+
+
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="list-group">
+          <span href="#" class="list-group-item list-group-item-default">
+            List of Candidates
+          </span>
+          <a href="#" class="list-group-item list-group-item-success"><span></span>Dapibus ac facilisis in</a>
+          <a href="#" class="list-group-item list-group-item-info">Morbi leo risus</a>
+          <a href="#" class="list-group-item list-group-item-info">Porta ac consectetur ac</a>
+          <a href="#" class="list-group-item list-group-item-info">Vestibulum at eros</a>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="list-group">
+          <span href="#" class="list-group-item list-group-item-default">
+            Approved Candidates
+          </span>
+          <a href="#" class="list-group-item list-group-item-success">Dapibus ac facilisis in</a>
+          <a href="#" class="list-group-item list-group-item-info">Morbi leo risus</a>
+          <a href="#" class="list-group-item list-group-item-info">Porta ac consectetur ac</a>
+          <a href="#" class="list-group-item list-group-item-info">Vestibulum at eros</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-danger alert-dismissible">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      Hello
+    </div>
+  </div>
+
+
+</div>
