@@ -3,8 +3,9 @@
 <h1><%= job.title %></h1>
 
 <div class="row">
-    <form role="form" method="post">
-    <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+
+    <input type="hidden" id="url_id" value="<%= job._id %>" />
+    <input type="hidden" id="csrf" name="_csrf" value="<%= _csrf %>" />
     <div class="col-md-4">
         <div class="thumbnail">
 
@@ -12,12 +13,23 @@
             <h3></h3>
             <p><%= job.body %></p>
             <h4>$<%= job.salary %></h4>
-            <span>Candidates <%= job.totalCandidates %> / <%= job.candMax %></span>
+            <span>Candidates <span id="totalCandidates"><%= job.totalCandidates %></span> / <%= job.candMax %></span>
           </div>
         </div>
       </a>
     </div>
-    <button type="submit" class="btn btn-primary btn-lg">Apply</button>
-    </form>
+    <% var alreadyApply = false;
+    for(var i=0; i < job.candidates.length; i++) { %>
+        <% if (String(user._id) === String(job.candidates[i])) { %>
+           <% alreadyApply = true %>
+        <% } %>
+    <% } %>
+
+    <% if (alreadyApply)  {%>
+      <button type="submit" class="btn btn-success btn-lg" id="unapply"><span class="glyphicon glyphicon-ok"></span> Applied</button>
+    <% } else { %>
+      <button type="submit" class="btn btn-primary btn-lg" id="apply">Apply</button>
+    <% } %>
+
 
 </div>

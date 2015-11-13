@@ -27,20 +27,20 @@ router.get('/jobs/:job_id', function(req, res) {
 	});
 });
 
-router.post('/jobs/:job_id', function(req, res, next) {
+router.post('/jobs/apply/:job_id', function(req, res, next) {
 
 	async.waterfall([
 		function(callback) {
-			Job.findOne({ _id: req.params.job_id}, function(err, found) {
+			Job.findOne({ _id: req.params.job_id }, function(err, found) {
 				if (err) return next(err);
 				callback(err, found);
 			});
 		},
 
-		function(found) {
+		function(found, callback) {
 			if (found.totalCandidates >= found.candMax) {
 				req.flash('error', 'It is full');
-				return res.redirect('/jobs/' + found._id);
+				return res.json('error');
 			} else {
 				Job.update(
 					{
@@ -50,13 +50,60 @@ router.post('/jobs/:job_id', function(req, res, next) {
 					{
 						$push: { candidates: req.user._id },
 						$inc: { totalCandidates: 1}
-					}, function(err) {
+					}, function(err, count) {
 						if (err) return next(err);
-						return res.redirect('/jobs');
+						console.log(count);
+						callback(null, count);
 					});
 				}
 			}
-		]);
+		], function (err, count) {
+			if (count > 1) {
+				res.json("success");
+			} else {
+				res.json("error");
+			}
+		});
 	});
+
+
+	router.post('/jobs/unapply/:job_id', function(req, res, next) {
+
+		async.waterfall([
+			function(callback) {
+				Job.findOne({ _id: req.params.job_id }, function(err, found) {
+					if (err) return next(err);
+					callback(err, found);
+				});
+			},
+
+			function(found, callback) {
+				if (found.totalCandidates >= found.candMax) {
+					req.flash('error', 'It is full');
+					return res.json('error');
+				} else {
+					Job.update(
+						{
+							_id: found._id,
+						},
+						{
+							$pull: { candidates: req.user._id },
+							$inc: { totalCandidates: -1}
+						}, function(err, count) {
+							console.log(err);
+							if (err) return next(err);
+							callback(null, count);
+						});
+					}
+				}
+			], function (err, count) {
+				if (count > 1) {
+					res.json("success");
+				} else {
+					res.json("error");
+				}
+			});
+		});
+
 
 module.exports = router;
