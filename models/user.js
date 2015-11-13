@@ -7,8 +7,8 @@ var Resume = require('./plugins/resume');
 var UserSchema = Schema({
   email: { type: String, unique: true, lowercase: true},
   password: String,
-  
-  role: { type: String, unique: true, lowercase: true},
+
+  role: { type: String, lowercase: true},
 
   facebook: String,
   google: String,

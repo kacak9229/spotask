@@ -34,12 +34,20 @@
       <% } %>
   </select>
 
+  <select name="candMax" class="selectpicker">
+    <option value="Select Categories">Candidates needed</option>
+    <% for(var i = 1; i <= 20 ; i++) { %>
+      <option value="<%= i %>"><%= i %></option>
+      <% } %>
+  </select>
+
   <br />
   <br />
   <div class="form-group">
     <label for="name">Job Title:</label>
     <input type="text" class="form-control" name="title">
   </div>
+
   <div class="form-group">
     <label for="description">Description</label>
     <input type="text" class="form-control" name="body">

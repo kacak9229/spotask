@@ -4,8 +4,6 @@ var User = require('../models/user');
 var passportConf = require('../config/passport');
 
 
-router.use(passportConf.requireRole('user'));
-
 // For user's resume
 router.get('/add-resume', passportConf.isAuthenticated, function(req, res, next) {
 	res.render('resume/add-new-resume', { message: req.flash('message')});

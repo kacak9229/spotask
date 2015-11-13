@@ -1,3 +1,23 @@
 <% layout('layout') -%>
 
-<h1>Single</h1>
+<h1><%= job.title %></h1>
+
+<div class="row">
+    <form role="form" method="post">
+    <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+    <div class="col-md-4">
+        <div class="thumbnail">
+
+          <div class="caption">
+            <h3></h3>
+            <p><%= job.body %></p>
+            <h4>$<%= job.salary %></h4>
+            <span>Candidates <%= job.totalCandidates %> / <%= job.candMax %></span>
+          </div>
+        </div>
+      </a>
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg">Apply</button>
+    </form>
+
+</div>

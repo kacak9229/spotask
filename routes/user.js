@@ -118,19 +118,10 @@ router.post('/signup/company', function(req, res, next) {
 });
 
 router.get('/profile', passportConf.checkResume, function(req, res) {
-  var bool = false;
-  console.log(req.user);
   if (req.user) {
     User.findById({_id: req.user._id}, function(err, found) {
       if (err) return next(err);
-      // console.log(found.resume.description);
-      console.log(typeof found.resume.description);
-      if (typeof found.resume.description === 'undefined') {
-
-        bool = true;
-      }
       res.render('accounts/user-profile', {
-        exist: bool,
         user: req.user
       });
     })

@@ -4,9 +4,6 @@ var User = require('../models/user');
 var Job = require('../models/job');
 var Category = require('../models/category');
 
-
-router.use(passportConf.requireRole('company'));
-
 router.use(function(req, res, next) {
 	Job.find({ company: req.user._id}, function(err, jobs) {
 		res.locals.jobs = jobs;
@@ -43,6 +40,7 @@ router.post('/create-job', function(req, res, next) {
 		return res.redirect('/create-job');
 	} else {
 		job.category =  req.body.category;
+		job.candMax = parseInt(req.body.candMax);
 	}
 
 	job.save(function(err) {
@@ -66,8 +64,8 @@ router.get('/company-profile', function(req, res) {
   }
 });
 
-router.get('/all-jobs', function(req, res) {
-	res.render('company-jobs');
+router.get('/company-jobs', function(req, res) {
+	res.render('company/company-jobs');
 });
 
 router.get('/single-job', function(req, res) {

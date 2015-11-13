@@ -9,6 +9,9 @@ var JobSchema = Schema({
   body: String,
   category: String,
   salary: String,
+  candidates: [{ type: Schema.Types.ObjectId, ref: 'User'}],
+	candMax: Number,
+	totalCandidates: {type: Number, default: 0}
 });
 
 JobSchema.plugin(timestamps);
