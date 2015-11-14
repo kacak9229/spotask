@@ -43,10 +43,13 @@ router.post('/create-job', function(req, res, next) {
 		job.candMax = parseInt(req.body.candMax);
 	}
 
-	job.save(function(err) {
+	job.save(function(err, job) {
 		if (err) return next(err);
 		req.flash('success', 'Successfully create a job');
-		return res.redirect('/create-job')
+		return res.json({
+			message: "Success",
+			job: job
+		});
 	});
 });
 
@@ -68,9 +71,35 @@ router.get('/company-jobs', function(req, res) {
 	res.render('company/company-jobs');
 });
 
-router.get('/single-job', function(req, res) {
-	res.render('home');
+router.get('/company-single-job/:job_id', function(req, res) {
+
+	Job.findById({ _id: req.params.job_id })
+		.populate('candidates')
+		.exec(function(err, listCandidates) {
+			res.render('company/company-single-job', {
+				list: listCandidates
+			});
+		});
 });
+
+router.get('/resume/candidates/:user_id', function(req, res) {
+
+	User.findById({ _id: req.params.user_id }, function(err, user) {
+		console.log(user);
+		res.render('company/candidates-resume', {
+			candidate: user
+		});
+	});
+});
+
+
+router.post('')
+
+// router.get('/company/applicants', function(err) {
+//
+//
+//
+// })
 
 
 module.exports = router;

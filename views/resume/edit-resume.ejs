@@ -31,7 +31,7 @@
   <div class="form-group">
     <label for="education">Education:</label>
     <% for(var i = 0; i < user.resume.educations.length; i++) { %>
-      <input type="hidden" type="hidden" name="education_id" value="<%= user.resume.educations[i]._id %>"/>
+      <input type="hidden" name="education_id" value="<%= user.resume.educations[i]._id %>"/>
       <input type="text" class="form-control" name="education_school" value="<%= user.resume.educations[i].school %>">
     <% } %>
   </div>
@@ -41,7 +41,7 @@
     <label for="education">Skills</label>
 
     <% for(var i = 0; i < user.resume.skills.length; i++) { %>
-      <input type="hidden" type="hidden" name="skill_id" value="<%= user.resume.skills[i]._id %>"/>
+      <input type="hidden" name="skill_id" value="<%= user.resume.skills[i]._id %>"/>
       <input type="text" class="form-control" name="skill_content" value="<%= user.resume.skills[i].content %>">
     <% } %>
 

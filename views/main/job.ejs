@@ -1,24 +1,54 @@
 <% layout('layout') -%>
+<link rel="stylesheet" href="/css/all-jobs.css">
+<link rel="stylesheet" href="/css/search.css">
 
-<h1>Jobs</h1>
 
-<div class="row">
-  <% for(var i=0; i < jobs.length; i++)  {%>
-
-    <div class="col-md-4">
-      <a href="/jobs/<%= jobs[i]._id %>" style="text-decoration: none">
-        <div class="thumbnail">
-
-          <div class="caption">
-            <h3><%= jobs[i].title %></h3>
-            <p><%= jobs[i].body %></p>
-            <h4>$<%= jobs[i].salary %></h4>
-            <span>Candidates: <%= jobs[i].totalCandidates %> / <%= jobs[i].candMax %></span>
-          </div>
-        </div>
-      </a>
-
+<div class="jumbotron">
+  <div class="container">
+  <h1>List of all Jobs</h1>
+  <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+  <p class="lead text-center">
+    <div id="custom-search-input">
+      <div class="input-group col-md-12">
+        <input type="text" class="form-control input-lg" placeholder="Search for part-time..." />
+        <span class="input-group-btn">
+          <button class="btn btn-info btn-lg" type="button">
+            <i class="glyphicon glyphicon-search"></i>
+          </button>
+        </span>
+      </div>
     </div>
+  </p>
+</div>
+</div>
+
+
+
+
+  <div style="margin-top: 3%" class="container">
+
+
+  <% for(var i=0; i < jobs.length; i+=3)  {%>
+    <div class="row stylish-panel">
+      <% for (var j = 0; j < 3; j++) { %>
+      <div class="col-md-4">
+        <div>
+          <img src="http://lorempixel.com/200/200/abstract/1/" alt="Texto Alternativo" class="img-circle img-thumbnail">
+          <h4><%= jobs[j].title %></h4>
+          <h3>$<%= jobs[j].salary %></h3>
+
+          <!-- <p>
+            Candidates: <h2><%= jobs[j].totalCandidates %> / <%= jobs[j].candMax %></h2>
+          </p> -->
+          <p><i>Per day</i></p>
+          <a href="/jobs/<%= jobs[j]._id %>" class="btn btn-primary" title="See more">More details »</a>
+        </div>
+      </div>
+      <% } %>
+      </div>
     <% } %>
+
+  </div>
+  </div>
 
 </div>

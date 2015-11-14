@@ -1,0 +1,27 @@
+<% layout('layout') -%>
+<link rel="stylesheet" href="/css/company-candidates.css" >
+
+<% if (list.totalCandidates == 0) { %>
+  <h1>Zero candidates</h1>
+
+<% } else { %>
+
+  <h1>List of Candidates for <%= list.title %></h1>
+  <% for (var i = 0; i < list.candidates.length; i++)  { %>
+
+    <div class="col-sm-3">
+        <div class="card">
+            <canvas class="header-bg" width="250" height="70" id="header-blur"></canvas>
+            <div class="avatar">
+                <img src="<%= list.candidates[i].profile.picture %>" alt="" />
+            </div>
+            <div class="content">
+                  <p><%= list.candidates[i].profile.name %></p>
+                <p><a href="/resume/candidates/<%= list.candidates[i]._id %>"
+                  class="btn btn-default">Resume</a><span id="status" class="btn btn-default">Status</span></p>
+            </div>
+        </div>
+    </div>
+  <% } %>
+  
+<% } %>

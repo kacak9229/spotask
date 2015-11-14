@@ -19,6 +19,11 @@ $(function(){
 
         $('#apply').removeClass('btn-primary btn-danger').addClass('btn-success')
         .html('<span class="glyphicon glyphicon-ok"></span> Applied').attr('id', 'unapply');
+
+        $('#alert').fadeIn("fast", function() {
+          $('#alert').html('You have successfully applied!').attr('id', 'clicker');
+        });
+
       },
       error: function(data){
         alert('Error', data);
@@ -39,6 +44,8 @@ $(function(){
         totalCandidates -= 1;
         $('#totalCandidates').html(totalCandidates);
         $('#unapply').removeClass('btn-success btn-danger').addClass('btn-primary').html('Apply').attr('id', 'apply');
+
+        $('.div').remove('.alert');
       },
       error: function(data){
         alert('Error', data);
@@ -54,5 +61,39 @@ $(function(){
   $(document).on('mouseleave', '#unapply', function(e) {
     $(this).removeClass('btn-danger').addClass('btn-success').html('<span class="glyphicon glyphicon-ok"></span> Applied');
   });
+
+  $('#education').on('submit', function(e) {
+    e.preventDefault();
+
+    var data = [];
+    $(this)
+    .find('input')
+    .each(function() {
+      var $this = $(this);
+
+      // Collect the data with the id and value
+      data.push({
+        id: $this.data('id'),
+        value: $this.val()
+      });
+    });
+
+
+    $.ajax({
+      url: '/update-resume',
+      type: 'post',
+      data: { data: JSON.stringify(data) }
+    })
+    .done(function(data) {
+      if (data.success) {
+        // Lazy: refresh window
+        window.location.reload();
+      }
+    })
+    .fail(function() {
+      // Show an error or something fancy
+    });
+  });
+
 
 });

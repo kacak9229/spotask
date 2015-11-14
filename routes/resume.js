@@ -3,6 +3,15 @@ var async = require('async');
 var User = require('../models/user');
 var passportConf = require('../config/passport');
 
+var updateResume = function(query, id, set, value,callback) {
+    var Query = { };
+    var update = { "$set": {} };
+
+    Query[query] = id;
+    update.$set[set] = value;
+
+    User.update(Query, update, callback);
+};
 
 // For user's resume
 router.get('/add-resume', passportConf.isAuthenticated, function(req, res, next) {
@@ -33,7 +42,6 @@ router.get('/update-resume', function(req, res, next) {
 	});
 });
 
-
 router.post('/update-resume', function(req, res, next) {
 
 	async.waterfall([
@@ -52,26 +60,54 @@ router.post('/update-resume', function(req, res, next) {
 
 		function(user, callback) {
 			var resume = user.resume.educations.length;
-			for(var i=0; i < resume; i++) {
-				User.update({'resume.educations._id': req.body.education_id[i]}, {'$set': {
-					'resume.educations.$.school': req.body.education_school[i],
-					// 'resume.educations.$.year': req.body.education_year[i],
-				}}, function(err) {
-					// Running nothing
-				});
+			console.log(resume);
+			if (resume == 1) {
+
+				updateResume(
+					'resume.educations._id', req.body.education_id,
+					'resume.educations.$.school', req.body.education_school,
+					function(err,result) {
+						// do something in here
+					});
+
+			} else {
+				for(var i=0; i < resume; i++) {
+					updateResume(
+	        'resume.educations._id', req.body.education_id[i],
+	        'resume.educations.$.school', req.body.education_school[i],
+	        function(err,result) {
+	            // do something in here
+	        });
+				}
 			}
 			callback(null, user);
 		},
 		function(user, callback) {
 			var resume = user.resume.skills.length;
-			for(var i=0; i < resume; i++) {
-				User.update({'resume.skills._id': req.body.skill_id[i]}, {'$set': {
-					'resume.skills.$.content': req.body.skill_content[i],
-				}}, function(err) {
-					// Running nothing
-				});
+
+			if (resume == 1) {
+
+				updateResume(
+				'resume.skills._id', req.body.skill_id,
+				'resume.skills.$.content', req.body.skill_content,
+				function(err,result) {
+						// do something in here
+				})
+
+			} else {
+
+				for(var i=0; i < resume; i++) {
+
+					updateResume(
+					'resume.skills._id', req.body.skill_id[i],
+					'resume.skills.$.content', req.body.skill_content[i],
+					function(err,result) {
+							// do something in here
+					});
+				}
 			}
 			callback(null, user);
+
 		},
 		function(user) {
 			req.flash('message', 'Updated everything');
