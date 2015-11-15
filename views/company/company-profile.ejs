@@ -14,10 +14,10 @@
           <!-- Sidebar user panel -->
           <div class="user-panel">
             <div class="pull-left image">
-              <img src="/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+              <img src="<%= user.profile.picture %>" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-              <p>Alexander Pierce</p>
+              <p><%= user.profile.name %></p>
               <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
           </div>
@@ -27,14 +27,16 @@
             <li class="header">MAIN NAVIGATION</li>
 
             <li class="treeview">
-              <a href="#">
+              <a href="/">
                 <i class="fa fa-edit"></i> <span>Home</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
             </li>
             <li>
-              <a href="pages/widgets.html">
-                <i class="fa fa-th"></i> <span>Jobs</span> <small class="label pull-right bg-green">0</small>
+              <a href="/company-jobs">
+                <i class="fa fa-th"></i> <span>Jobs</span> <small class="label pull-right bg-green">
+                  <%= jobs.length %>
+                </small>
               </a>
             </li>
 
@@ -73,7 +75,7 @@
               <!-- small box -->
               <div class="small-box bg-aqua">
                 <div class="inner">
-                  <h3>12</h3>
+                  <h3><%= jobs.length %></h3>
                   <p>Jobs Posted</p>
                 </div>
                 <div class="icon">
@@ -138,18 +140,22 @@
                 </div>
                 <div class="box-body chat" id="chat-box">
                   <!-- chat item -->
+                  <% for(var i = 0; i < jobs.length; i++) { %>
+                    <% for(var j = 0; j < jobs[i].candidates.length; j++) { %>
                   <div class="item">
-                    <img src="/dist/img/user3-128x128.jpg" alt="user image" class="offline">
+                    <img src="<%= jobs[i].candidates[j].profile.picture %>" alt="user image" class="offline">
                     <p class="message">
                       <a href="#" class="name">
                         <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> 5:15</small>
-                        Alexander Pierce
+                        <%= jobs[i].candidates[j].profile.name %>
                       </a>
                       I would like to meet you to discuss the latest news about
                       the arrival of the new theme. They say it is going to be one the
                       best themes on the market
                     </p>
                   </div><!-- /.item -->
+                  <% } %>
+                  <% } %>
                   <!-- chat item -->
                 </div><!-- /.chat -->
 
@@ -271,19 +277,23 @@
 
                 </div>
                 <div class="box-body">
-                  <form action="#" method="post">
+                  <form action="/create-job" method="post">
 
                     <input type="hidden" name="_csrf" value="<%= _csrf %>" />
 
 
                     <select name="category" class="selectpicker">
                       <option value="Select Categories">Select Categories</option>
-
+                      <% for(var i = 0; i < categories.length ; i++) { %>
+                        <option value="<%= categories[i]._id %>"><%= categories[i].name %></option>
+                        <% } %>
                     </select>
 
                     <select name="candMax" class="selectpicker">
                       <option value="Select Categories">Candidates needed</option>
-
+                      <% for(var i = 1; i <= 20 ; i++) { %>
+                        <option value="<%= i %>"><%= i %></option>
+                        <% } %>
                     </select>
 
                     <br />
@@ -300,11 +310,12 @@
                     <div>
                       <textarea class="textarea" name="body" placeholder="Description about the job" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                     </div>
+                    <div class="box-footer clearfix">
+                      <button class="pull-right btn btn-primary" id="sendEmail">Submit Job <i class="fa fa-arrow-circle-right"></i></button>
+                    </div>
                   </form>
                 </div>
-                <div class="box-footer clearfix">
-                  <button class="pull-right btn btn-default" id="sendEmail">Send <i class="fa fa-arrow-circle-right"></i></button>
-                </div>
+
               </div>
 
             </section><!-- /.Left col -->

@@ -15,17 +15,23 @@
   </head>
   <body>
     <div class="container">
+      
       <div class="row">
         <div class="col-xs-12">
           <div id="photo-header" class="text-center">
             <!-- PHOTO (AVATAR) -->
-            <button class="btn btn-success btn-lg" id="accept">Accept</button>
+            <form action="/accept/candidates/<%= jobId %>/<%= userId %>" method="post">
+              <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+              <button class="btn btn-success btn-lg" id="accept">Accept</button>
+            </form>
             <div id="photo">
               <img src="<%= candidate.profile.picture %>" alt="avatar">
 
             </div>
-
+            <form action="/decline/candidates/<%= jobId %>/<%= userId %>" method="post">
+              <input type="hidden" name="_csrf" value="<%= _csrf %>" />
               <button class="btn btn-danger btn-lg" id="decline">Decline</button>
+            </form>
             <div id="text-header">
               <h1>Hello,<br> my name is <span><%= candidate.profile.name %></span><sup>24yo</sup> and this is my resume/cv</h1>
             </div>
@@ -141,10 +147,11 @@
       </div>
     </div>
     <!-- JQUERY -->
-    <script src="js/jquery.min.js"></script>
+    <script src="/js/jquery.min.js"></script>
     <!-- BOOTSTRAP -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
     <!-- SCRIPTS -->
-    <script src="js/scripts.js"></script>
+    <script src="/js/scripts.js"></script>
+    <script src="/js/candidate-resume.js"></script>
   </body>
 </html>

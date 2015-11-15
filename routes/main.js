@@ -106,4 +106,9 @@ router.post('/jobs/apply/:job_id', function(req, res, next) {
 		});
 
 
+		router.get('/inbox', function(req, res) {
+			res.render('main/inbox');
+		});
+
+
 module.exports = router;

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ./partials-2/head %>
+  </head>
+  <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
+  <body class="hold-transition skin-blue layout-top-nav">
+    <div class="wrapper">
+
+      <% include ./partials-2/navbar %>
+      <!-- Full Width Column -->
+      <div class="content-wrapper">
+        <div class="container">
+          <%- body -%>
+        </div><!-- /.container -->
+      </div><!-- /.content-wrapper -->
+    <% include ./partials-2/footer %>
+    </div><!-- ./wrapper -->
+
+  <% include ./partials-2/interact %>
+  </body>
+</html>

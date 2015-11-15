@@ -1,27 +1,139 @@
-<% layout('layout') -%>
-<link rel="stylesheet" href="/css/company-candidates.css" >
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/admin/admin-header %>
 
-<% if (list.totalCandidates == 0) { %>
-  <h1>Zero candidates</h1>
+  </head>
+  <body class="hold-transition skin-blue sidebar-mini" style="">
+    <div class="wrapper">
 
-<% } else { %>
 
-  <h1>List of Candidates for <%= list.title %></h1>
-  <% for (var i = 0; i < list.candidates.length; i++)  { %>
-
-    <div class="col-sm-3">
-        <div class="card">
-            <canvas class="header-bg" width="250" height="70" id="header-blur"></canvas>
-            <div class="avatar">
-                <img src="<%= list.candidates[i].profile.picture %>" alt="" />
+      <!-- Left side column. contains the logo and sidebar -->
+      <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+          <!-- Sidebar user panel -->
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="<%= user.profile.picture %>" class="img-circle" alt="User Image">
             </div>
-            <div class="content">
-                  <p><%= list.candidates[i].profile.name %></p>
-                <p><a href="/resume/candidates/<%= list.candidates[i]._id %>"
-                  class="btn btn-default">Resume</a><span id="status" class="btn btn-default">Status</span></p>
+            <div class="pull-left info">
+              <p><%= user.profile.name %></p>
+              <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
+          </div>
+
+          <!-- sidebar menu: : style can be found in sidebar.less -->
+          <ul class="sidebar-menu">
+            <li class="header">MAIN NAVIGATION</li>
+
+            <li class="treeview">
+              <a href="/">
+                <i class="fa fa-edit"></i> <span>Home</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+            </li>
+
+            <li class="treeview">
+              <a href="/company-profile">
+                <i class="fa fa-edit"></i> <span>Profile</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+            </li>
+            <li>
+              <a href="/company-jobs">
+                <i class="fa fa-th"></i> <span>Jobs</span> <small class="label pull-right bg-green">
+                  <%= jobs.length %>
+                </small>
+              </a>
+            </li>
+
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-edit"></i> <span>Post a jobs</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+            </li>
+            <li>
+              <a href="pages/mailbox/mailbox.html">
+                <i class="fa fa-envelope"></i> <span>Mailbox</span>
+                <small class="label pull-right bg-yellow">12</small>
+              </a>
+            </li>
+          </ul>
+        </section>
+        <!-- /.sidebar -->
+      </aside>
+
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            Company's Jobs
+          </h1>
+        </section>
+        <div class="row">
+          <div class="col-md-3 pull-right" style="margin-right: 3%">
+        <% if (success.length > 0) { %>
+          <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <%= success %>
+          </div>
+        <% } %>
+
+        <% if (error.length > 0) { %>
+          <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <%= error %>
+          </div>
+        <% } %>
+      </div>
+      </div>
+
+        <!-- Main content -->
+        <section class="content">
+          <!-- Small boxes (Stat box) -->
+          <% if (list.totalCandidates == 0) { %>
+            <h1>Zero candidates</h1>
+
+          <% } else { %>
+
+
+
+          <h1>Candidates who applied for <b><%= list.title %></b></h1>
+            <br />
+            <br />
+              <% for (var i = 0; i < list.candidates.length; i++)  { %>
+                <div class="col-md-3">
+
+              <!-- Profile Image -->
+              <div class="box box-primary">
+                <div class="box-body box-profile">
+                  <img class="profile-user-img img-responsive img-circle" src="<%= list.candidates[i].profile.picture %>" alt="User profile picture">
+                  <h3 class="profile-username text-center"><%= list.candidates[i].profile.name %></h3>
+
+                  <a href="/resume/candidates/<%= list._id %>/<%= list.candidates[i]._id %>" class="btn btn-primary btn-block"><b>Resume</b></a>
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+
+              <!-- About Me Box -->
+            </div>
+
+              <% } %>
+          <% } %>
+
+        </section><!-- /.content -->
+      </div><!-- /.content-wrapper -->
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Version</b> 2.3.0
         </div>
-    </div>
-  <% } %>
-  
-<% } %>
+        <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights reserved.
+      </footer>
+    </div><!-- ./wrapper -->
+
+   <% include ../partials/admin/admin-interact %>
+  </body>
+</html>
