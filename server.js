@@ -10,7 +10,6 @@ var lusca = require('lusca');
 var ejs = require('ejs');
 var engine = require('ejs-mate');
 
-
 var MongoStore = require('connect-mongo')(session); // For session handling
 var mongoose = require('mongoose');
 var flash = require('express-flash');
@@ -22,13 +21,15 @@ var passport = require('passport');
 API keys and Passport configuration
 */
 var secret = require('./config/secret');
-// var passportConf = require('./config/passport');
+
 
 /*
 Create express server
 */
-
 var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
 
 // Connect to MongoDB either use Mongolab
 mongoose.connect(secret.database, function(err) {
@@ -73,7 +74,6 @@ app.use(lusca({
 /*
 App Routes
 */
-
 var main = require('./routes/main');
 var userRoute = require('./routes/user');
 var companyRoute = require('./routes/company');
@@ -86,7 +86,7 @@ app.use(companyRoute);
 app.use(resumeRoute);
 app.use(adminRoute);
 
-app.listen(3000, function(err) {
+http.listen(3000, function(err) {
   if (err) {
     console.log('Error running express server');
   } else {

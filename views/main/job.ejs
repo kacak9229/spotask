@@ -1,13 +1,17 @@
-<% layout('layout') -%>
+<% layout('blueprint-no') -%>
 <link rel="stylesheet" href="/css/all-jobs.css">
 <link rel="stylesheet" href="/css/search.css">
 
 
-<div class="jumbotron">
+<div class="jumbotron" style="background: #2e8ece;
+    color: white;">
   <div class="container">
-  <h1>List of all Jobs</h1>
-  <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+  <h1 class="text-center">Get your job and Earn <b>Money</b></h1>
+  <p class="text-center">Search many of <b>Spotask</b> jobs.</p>
   <p class="lead text-center">
+
+    <div class="row">
+    <div class="col-md-6 col-md-offset-3">
     <div id="custom-search-input">
       <div class="input-group col-md-12">
         <input type="text" class="form-control input-lg" placeholder="Search for part-time..." />
@@ -18,6 +22,10 @@
         </span>
       </div>
     </div>
+  </div>
+</div>
+
+
   </p>
 </div>
 </div>
@@ -28,21 +36,29 @@
   <div style="margin-top: 3%" class="container">
 
 
-  <% for(var i=0; i < jobs.length; i+=3)  {%>
-    <div class="row stylish-panel">
-      <% for (var j = 0; j < 3; j++) { %>
-      <div class="col-md-4">
-        <div>
-          <img src="http://lorempixel.com/200/200/abstract/1/" alt="Texto Alternativo" class="img-circle img-thumbnail">
-          <h4><%= jobs[j].title %></h4>
-          <h3>$<%= jobs[j].salary %></h3>
+  <%
+    for(var k=3, i=0 ; i < jobs.length; i+=3, k+=3)  { %>
 
-          <!-- <p>
-            Candidates: <h2><%= jobs[j].totalCandidates %> / <%= jobs[j].candMax %></h2>
-          </p> -->
-          <p><i>Per day</i></p>
-          <a href="/jobs/<%= jobs[j]._id %>" class="btn btn-primary" title="See more">More details »</a>
-        </div>
+    <div class="row stylish-panel">
+
+      <% for (var j = i; j < k; j++) { %>
+
+      <div class="col-md-4">
+        <% if (typeof jobs[j] === 'undefined') {%>
+
+        <% } else { %>
+          <div>
+            <img src="http://lorempixel.com/200/200/abstract/1/" alt="Texto Alternativo" class="img-circle img-thumbnail">
+            <h4><%= jobs[j].title %></h4>
+            <h3>$<%= jobs[j].salary %></h3>
+
+            <p>
+              Candidates: <h2><%= jobs[j].totalCandidates %> / <%= jobs[j].candMax %></h2>
+            </p>
+            <p><i>Per day</i></p>
+            <a href="/jobs/<%= jobs[j]._id %>" class="btn btn-primary" title="See more">More details »</a>
+          </div>
+        <% } %>
       </div>
       <% } %>
       </div>

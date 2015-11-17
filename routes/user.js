@@ -122,6 +122,7 @@ router.get('/profile', passportConf.checkResume, function(req, res) {
     User.findById({_id: req.user._id}, function(err, found) {
       if (err) return next(err);
       res.render('accounts/user-profile', {
+        message: req.flash('success'),
         user: req.user
       });
     })

@@ -110,8 +110,8 @@ router.post('/update-resume', function(req, res, next) {
 
 		},
 		function(user) {
-			req.flash('message', 'Updated everything');
-			return res.redirect('/resume');
+			req.flash('success', 'Resume updated');
+			return res.redirect('/profile');
 		}
 	]);
 });

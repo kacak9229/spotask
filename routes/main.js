@@ -6,7 +6,11 @@ var Category = require('../models/category');
 var passportConf = require('../config/passport');
 
 router.get('/', function(req, res) {
-	res.render('main/home');
+	if (req.user) {
+		res.render("accounts/user-profile");
+	} else {
+		res.render('main/home');
+	}
 });
 
 // List of jobs
@@ -33,6 +37,7 @@ router.post('/jobs/apply/:job_id', function(req, res, next) {
 		function(callback) {
 			Job.findOne({ _id: req.params.job_id }, function(err, found) {
 				if (err) return next(err);
+				console.log(found);
 				callback(err, found);
 			});
 		},
@@ -48,7 +53,7 @@ router.post('/jobs/apply/:job_id', function(req, res, next) {
 						candidates: { $ne: req.user._id }
 					},
 					{
-						$push: { candidates: req.user._id },
+						$push: { candidates: { user: req.user._id } },
 						$inc: { totalCandidates: 1}
 					}, function(err, count) {
 						if (err) return next(err);
@@ -87,7 +92,7 @@ router.post('/jobs/apply/:job_id', function(req, res, next) {
 							_id: found._id,
 						},
 						{
-							$pull: { candidates: req.user._id },
+							$pull: { candidates: { user: req.user._id} },
 							$inc: { totalCandidates: -1}
 						}, function(err, count) {
 							console.log(err);
@@ -108,6 +113,16 @@ router.post('/jobs/apply/:job_id', function(req, res, next) {
 
 		router.get('/inbox', function(req, res) {
 			res.render('main/inbox');
+		});
+
+		router.get('/jobs-applied', function(req, res) {
+			Job.find({ 'candidates': req.user._id }, function(err, found) {
+				console.log(found);
+				found.forEach(function(candidate) {
+					console.log(candidate.title);
+				})
+			});
+
 		});
 
 

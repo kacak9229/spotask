@@ -9,20 +9,12 @@ var JobSchema = Schema({
   body: String,
   category: String,
   salary: String,
-  candidates: [{ type: Schema.Types.ObjectId, ref: 'User'}],
+  candidates: [{
+    user: { type: Schema.Types.ObjectId, ref: 'User'},
+    status: { type: String, default: 'In Progress' },
+  }],
 	candMax: Number,
 	totalCandidates: {type: Number, default: 0},
-  totalAccept: Number,
-  totalDecline: Number,
-  accept: [{
-      user: { type: Schema.Types.ObjectId, ref: 'User'},
-      status: String,
-     }],
-  decline: [{
-    user: { type: Schema.Types.ObjectId, ref: 'User'},
-    status: String
-  }],
-
 });
 
 JobSchema.plugin(timestamps);

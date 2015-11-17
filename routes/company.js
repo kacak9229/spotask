@@ -1,9 +1,13 @@
-var router = require('express').Router();
+var app = require('express');
+var router = app.Router();
 var async = require('async');
 var passportConf = require('../config/passport');
 var User = require('../models/user');
 var Job = require('../models/job');
 var Category = require('../models/category');
+
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
 router.use(function(req, res, next) {
 	Job.find({ company: req.user._id}, function(err, jobs) {
@@ -47,10 +51,7 @@ router.post('/create-job', function(req, res, next) {
 	job.save(function(err, job) {
 		if (err) return next(err);
 		req.flash('success', 'Successfully create a job');
-		return res.json({
-			message: "Success",
-			job: job
-		});
+		return res.redirect('/company-jobs');
 	});
 });
 
@@ -68,7 +69,7 @@ router.get('/company-profile', function(req, res, next) {
 
 			function(categories, callback) {
 				Job.find({ company: req.user._id })
-					.populate('candidates')
+					.populate('candidates.user')
 					.exec(function(err, found) {
 						if (err) return next(err);
 						console.log();
@@ -91,8 +92,9 @@ router.get('/company-jobs', function(req, res) {
 router.get('/company-single-job/:job_id', function(req, res) {
 
 	Job.findById({ _id: req.params.job_id })
-		.populate('candidates')
+		.populate('candidates.user')
 		.exec(function(err, listCandidates) {
+			console.log(listCandidates);
 			res.render('company/company-single-job', {
 				list: listCandidates,
 				success: req.flash('success'),
@@ -128,15 +130,17 @@ router.post('/accept/candidates/:job_id/:user_id', function(req, res, next) {
 				Job.update(
 					{
 						_id: found._id,
-						accept: { $ne: req.params.user_id }
+						'candidates.user': req.params.user_id
 					},
 					{
-						$push: { accept: req.params.user_id },
-						$inc: { totalAccept: 1}
+						$set: {'candidates.$.status': 'Accepted'},
 					}, function(err, count) {
 						if (err) return next(err);
+						// io.emit('notify', count);
 						callback(err, count);
 					});
+
+
 
 			}
 		], function (err, count) {
@@ -147,33 +151,20 @@ router.post('/accept/candidates/:job_id/:user_id', function(req, res, next) {
 
 router.post('/decline/candidates/:job_id/:user_id', function(req, res, next) {
 
-	async.waterfall([
-		function(callback) {
-			Job.findOne({ _id: req.params.job_id }, function(err, found) {
-				if (err) return next(err);
-				callback(err, found);
-			});
+	Job.update(
+		{
+			_id: req.params.job_id,
+			'candidates.user': req.params.user_id
 		},
-
-		function(found, callback) {
-				Job.update(
-					{
-						_id: found._id,
-						accept: { $ne: req.params.user_id }
-					},
-					{
-						$push: { decline: req.params.user_id },
-						$inc: { totalDecline: 1}
-					}, function(err, count) {
-						if (err) return next(err);
-						callback(null, count);
-					});
-
-			}
-		], function (err, count) {
+		{
+			$set: { 'candidates.$.status': 'Declined' },
+		}, function(err, count) {
+			if (err) return next(err);
+			// io.emit('notify', count);
 			req.flash('error', 'Successfully Declined');
 			res.redirect('/company-single-job/' + req.params.job_id);
 		});
+
 });
 
 
