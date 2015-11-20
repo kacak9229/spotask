@@ -22,6 +22,7 @@ var UserSchema = Schema({
     picture: { type: String, default: ''}
   },
 
+  notifications: [{ type: String, default: ''}],
 
   resetPasswordToken: String,
   resetPasswordExpires: Date

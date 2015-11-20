@@ -29,18 +29,12 @@ router.post('/add-resume', function(req, res, next) {
 		foundUser.save(function(err) {
 			if (err) return next(err);
 			req.flash('message', 'Successfully create a resume');
-			return res.redirect('/add-resume')
+			return res.redirect('/resume');
 		});
 	})
 
 });
 
-router.get('/update-resume', function(req, res, next) {
-	User.findById(req.user._id, function(err, user) {
-		if (err) return next(err);
-		res.render('resume/edit-resume', { user: user , message: req.flash('message')});
-	});
-});
 
 router.post('/update-resume', function(req, res, next) {
 
@@ -123,8 +117,13 @@ router.get('/resume', passportConf.validateResume , function(req, res, next) {
 	});
 });
 
-router.get('/no-resume', function(req, res, next) {
-		res.render('accounts/no-resume');
+router.get('/no-resume', passportConf.requireRole('user'), function(req, res, next) {
+  if (req.user.resume.educations.length === 0 || req.user.resume.skills.length === 0) {
+    res.render('accounts/no-resume');
+  } else {
+    return res.redirect('/');
+  }
 });
+
 
 module.exports = router;

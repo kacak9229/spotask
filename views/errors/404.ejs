@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials-2/head %>
+  </head>
+  <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
+  <body class="hold-transition skin-blue layout-top-nav">
+
+
+      <!-- Full Width Column -->
+      <div class="content-wrapper" style="background: white">
+
+
+        <div class="error-page">
+                    <h2 class="headline text-yellow"> 404</h2>
+                    <div class="error-content">
+                      <h3><i class="fa fa-warning text-yellow"></i> Oops! Page not found.</h3>
+                      <p>
+                        We could not find the page you were looking for.
+                        Meanwhile, you may <a href="../../index.html">return to dashboard</a> or try using the search form.
+                      </p>
+                    
+                      <% if (user.role === "user") { %>
+                      <a href="/profile" class="btn btn-success btn-flat btn-lg">Profile</a>
+                      <% } else { %>
+                        <a href="/company-profile" class="btn btn-success btn-flat btn-lg">Company Profile</i></a>
+                        <% } %>
+                    </div><!-- /.error-content -->
+                  </div>
+
+
+      </div><!-- /.content-wrapper -->
+    <% include ../partials-2/footer %>
+
+  <% include ../partials-2/interact %>
+  </body>
+</html>

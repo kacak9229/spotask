@@ -1,7 +1,88 @@
-<% layout('blueprint') -%>
+<% layout('blueprint-no') -%>
 
-<div class="container">
+  <link href="/css/add-resume.css" rel="stylesheet">
 
-  <h1> Enter your resume First </h1>
-  <a href="/add-resume" class="btn btn-primary btn-lg">Go do your thing :)</a>
+
+
+
+
+  <div class="jumbotron" id="jumbotron-test" style="background: white">
+  <h1 class="text-center"> Enter your resume <b>First</b> </h1>
+
+  <h3 class="text-center">Resume is important for getting you a job :)</h3>
+  <br />
+
+  <div class="text-center">
+    <button type="button" class="btn bg-maroon btn-flat btn-lg" data-toggle="modal" data-target="#myModal">Add your resume</button>
+    <button type="button" class="btn bg-olive btn-flat btn-lg">Learn More</button>
+  </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" id="xbutton" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-4 col-md-offset-4">
+            <h1 class="text-center">Add your Resume</h1>
+
+            <h5 class="text-center">Fullfill all of these boxes with your magic!</h5>
+            <br />
+          </div>
+            <div class="col-lg-4 col-md-offset-4">
+              <form role="form" method="post" action="/add-resume">
+                <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+                <div class="form-group">
+                  <label for="name">Full Name:</label>
+                  <input type="text" class="form-control" name="fullname">
+                </div>
+
+                <div class="form-group">
+                  <label for="name">About you, Share your story :)</label>
+                  <textarea class="form-control" id="inputExperience" name="about"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="email">Skills:</label>
+                  <input type="text" class="form-control" name="skills">
+                </div>
+
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group" id="education">
+                      <label for="Education">Year:</label>
+                      <input type="text" class="form-control" name="year" >
+                    </div>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="form-group" id="education">
+                      <label for="Education">Education:</label>
+                      <input type="text" class="form-control" name="school" >
+                    </div>
+                  </div>
+                </div>
+
+                  <button type="submit" class="btn btn-success btn-lg">Submit</button>
+
+
+              </form>
+
+              <br />
+              <br />
+
+               <p style="opacity: 0.5">If you sign up with Twitter or Facebook, we’ll start you off with a network by
+               automatically importing any followers/followees or friends already on Medium.
+               Also, we’ll never post to Twitter or Facebook without your permission.
+               For more info, please see Login FAQ.</p>
+          </div>
+      </div>
+
+    </div>
+    </div>
+  </div>
 </div>

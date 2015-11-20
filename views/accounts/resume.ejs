@@ -14,16 +14,21 @@
     <![endif]-->
   </head>
   <body>
+    <div class="navigation" style="text-align: center; margin-top: 3px">
+      <a href="/profile" class="btn btn-primary">Profile</a>
+    </div>
     <div class="container">
       <div class="row">
         <div class="col-xs-12">
           <div id="photo-header" class="text-center">
+
             <!-- PHOTO (AVATAR) -->
             <div id="photo">
               <img src="<%= user.profile.picture %>" alt="avatar">
             </div>
             <div id="text-header">
               <h1>Hello,<br> my name is <span><%= user.profile.name %></span><sup>24yo</sup> and this is my resume/cv</h1>
+
             </div>
           </div>
         </div>

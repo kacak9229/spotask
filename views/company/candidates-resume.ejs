@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>3ColorResume</title>
     <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/font-awesome.css" rel="stylesheet">
+
     <link href="/css/main.css" rel="stylesheet">
     <!--[if lt IE 9]>
       <script src="js/html5shiv.js"></script>
@@ -15,12 +15,15 @@
   </head>
   <body>
     <div class="container">
-      
+
       <div class="row">
         <div class="col-xs-12">
           <div id="photo-header" class="text-center">
             <!-- PHOTO (AVATAR) -->
             <form action="/accept/candidates/<%= jobId %>/<%= userId %>" method="post">
+              <!-- <input type="hidden" id="company_id" value="<%= user._id %>" /> -->
+              <input type="hidden" id="companyName" value="<%= user.profile.name %>" />
+              <input type="hidden" id="candidate_id" value="<%= userId %>" />
               <input type="hidden" name="_csrf" value="<%= _csrf %>" />
               <button class="btn btn-success btn-lg" id="accept">Accept</button>
             </form>
@@ -28,10 +31,7 @@
               <img src="<%= candidate.profile.picture %>" alt="avatar">
 
             </div>
-            <form action="/decline/candidates/<%= jobId %>/<%= userId %>" method="post">
-              <input type="hidden" name="_csrf" value="<%= _csrf %>" />
-              <button class="btn btn-danger btn-lg" id="decline">Decline</button>
-            </form>
+            
             <div id="text-header">
               <h1>Hello,<br> my name is <span><%= candidate.profile.name %></span><sup>24yo</sup> and this is my resume/cv</h1>
             </div>
@@ -146,12 +146,9 @@
         </div>
       </div>
     </div>
-    <!-- JQUERY -->
-    <script src="/js/jquery.min.js"></script>
-    <!-- BOOTSTRAP -->
-    <script src="/js/bootstrap.min.js"></script>
-    <!-- SCRIPTS -->
-    <script src="/js/scripts.js"></script>
-    <script src="/js/candidate-resume.js"></script>
+
+    <script src="/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <% include ../partials-2/interact %>
+
   </body>
 </html>

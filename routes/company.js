@@ -17,17 +17,12 @@ router.use(function(req, res, next) {
 });
 
 router.get('/create-job', function(req, res, next) {
-	Category.find({}, function(err, categories) {
-			res.render('company/create-job', {
-				error: req.flash('error'),
-				success: req.flash('success'),
-				categories: categories
-			});
-	});
+
+
 });
 
 router.post('/create-job', function(req, res, next) {
-	console.log(req.body.title === '');
+
 	var job = new Job();
 
 	if (req.body.title === '' || req.body.body === '' || req.body.salary === '') {
@@ -56,7 +51,7 @@ router.post('/create-job', function(req, res, next) {
 });
 
 
-router.get('/company-profile', function(req, res, next) {
+router.get('/company-profile', passportConf.requireRole('company'), function(req, res, next) {
 
   if (req.user) {
 		async.waterfall([
@@ -72,7 +67,6 @@ router.get('/company-profile', function(req, res, next) {
 					.populate('candidates.user')
 					.exec(function(err, found) {
 						if (err) return next(err);
-						console.log();
 						return res.render('company/company-profile', {
 							categories: categories,
 							jobs: found
@@ -85,16 +79,15 @@ router.get('/company-profile', function(req, res, next) {
   }
 });
 
-router.get('/company-jobs', function(req, res) {
+router.get('/company-jobs', passportConf.requireRole('company'), function(req, res) {
 	res.render('company/company-jobs');
 });
 
-router.get('/company-single-job/:job_id', function(req, res) {
+router.get('/company-single-job/:job_id', passportConf.requireRole('company'), function(req, res) {
 
 	Job.findById({ _id: req.params.job_id })
 		.populate('candidates.user')
 		.exec(function(err, listCandidates) {
-			console.log(listCandidates);
 			res.render('company/company-single-job', {
 				list: listCandidates,
 				success: req.flash('success'),
@@ -103,10 +96,10 @@ router.get('/company-single-job/:job_id', function(req, res) {
 		});
 });
 
-router.get('/resume/candidates/:job_id/:user_id', function(req, res) {
+router.get('/resume/candidates/:job_id/:user_id', passportConf.requireRole('company'), function(req, res) {
 
 	User.findById({ _id: req.params.user_id }, function(err, user) {
-		console.log(user);
+
 		res.render('company/candidates-resume', {
 			candidate: user,
 			userId: req.params.user_id,
@@ -136,7 +129,7 @@ router.post('/accept/candidates/:job_id/:user_id', function(req, res, next) {
 						$set: {'candidates.$.status': 'Accepted'},
 					}, function(err, count) {
 						if (err) return next(err);
-						// io.emit('notify', count);
+
 						callback(err, count);
 					});
 
@@ -160,7 +153,7 @@ router.post('/decline/candidates/:job_id/:user_id', function(req, res, next) {
 			$set: { 'candidates.$.status': 'Declined' },
 		}, function(err, count) {
 			if (err) return next(err);
-			// io.emit('notify', count);
+
 			req.flash('error', 'Successfully Declined');
 			res.redirect('/company-single-job/' + req.params.job_id);
 		});

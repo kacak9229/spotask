@@ -6,11 +6,18 @@ var Category = require('../models/category');
 var passportConf = require('../config/passport');
 
 router.get('/', function(req, res) {
-	if (req.user) {
-		res.render("accounts/user-profile");
-	} else {
-		res.render('main/home');
-	}
+		if (req.user && req.user.role === 'user') {
+			Job.find({}, function(err, jobs) {
+				res.render('main/job', {
+					jobs: jobs,
+					message: req.flash('message')
+				});
+			});
+		} else if (req.user && req.user.role === 'company'){
+			return res.redirect('/company-profile');
+		} else {
+			res.render('main/home');
+		}
 });
 
 // List of jobs
@@ -23,21 +30,25 @@ router.get('/jobs', function(req, res) {
 	});
 });
 
-router.get('/jobs/:job_id', function(req, res) {
-	Job.findOne({ _id: req.params.job_id }, function(err, job) {
-		res.render('main/job-single', {
-			job: job,
+router.get('/jobs/:job_id', passportConf.checkResume,function(req, res) {
+	Job
+		.findOne({ _id: req.params.job_id })
+		.populate('company')
+		.exec(function(err, job) {
+			console.log(job);
+			res.render('main/job-single', {
+				job: job,
+			});
 		});
-	});
 });
 
-router.post('/jobs/apply/:job_id', function(req, res, next) {
+router.post('/jobs/apply/:job_id',  function(req, res, next) {
 
 	async.waterfall([
 		function(callback) {
 			Job.findOne({ _id: req.params.job_id }, function(err, found) {
 				if (err) return next(err);
-				console.log(found);
+
 				callback(err, found);
 			});
 		},
@@ -57,7 +68,7 @@ router.post('/jobs/apply/:job_id', function(req, res, next) {
 						$inc: { totalCandidates: 1}
 					}, function(err, count) {
 						if (err) return next(err);
-						console.log(count);
+
 						callback(null, count);
 					});
 				}
@@ -95,7 +106,7 @@ router.post('/jobs/apply/:job_id', function(req, res, next) {
 							$pull: { candidates: { user: req.user._id} },
 							$inc: { totalCandidates: -1}
 						}, function(err, count) {
-							console.log(err);
+
 							if (err) return next(err);
 							callback(null, count);
 						});

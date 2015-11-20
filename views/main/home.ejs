@@ -1,87 +1,132 @@
-<% layout('layout') %>
+<!DOCTYPE html>
+<html lang="en">
 
-<!-- Header -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Spotask</title>
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/css/animate.min.css" type="text/css">
+
+    <link rel="stylesheet" href="/css/colorcode.css" type="text/css">
+    <link id="favicon" rel="shortcut icon" href="/img/favicon-32.png" sizes="16x16 32x32 48x48" type="image/png">
+
+</head>
+
+<body id="page-top">
+
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    Menu
+                </button>
+                <button type="link" class="navbar-toggle collapsed btn btn-link" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    Sign In
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top"><div class="logoholder"><img src="/img/spotaskwhite.png" style="width: 100px" alt=""></div></a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right navi">
+                    <li>
+                        <a class="page-scroll" href="/contact">Contact</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="/login">Sign in</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="/signup">Signup</a>
+                    </li>
+                    <li>
+                        <a href="/signup/company" class="btn btn-default supButton">Create a company's account</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+    </nav>
+
+    <header>
+        <div class="header-content">
+            <div class="header-content-inner">
+
+                <img src="/img/spotaskwhite.png" style="width: 34%">
 
 
-<div class="intro-header">
-    <div class="container">
+                <div class="cta_subheader"><strong>Restoring the jobless</strong></div>
 
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="intro-message">
-                    <img class="landingSpot" src="/img/landingSpotask.png">
-                    <hr class="intro-divider">
-                    <ul class="list-inline intro-social-buttons">
-                        <li>
-                            <a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/IronSummitMedia/startbootstrap" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
-                        </li>
-                        <li>
-                            <a href="#" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
-                        </li>
-                    </ul>
-                </div>
             </div>
         </div>
 
-    </div>
-    <!-- /.container -->
-
-</div>
-
-  </div>
+        <aside class="bg-dark">
+            <div class="container text-left">
 
 
-  <!-- /.content-section-b -->
 
-  <div class="content-section-a">
+                    <div class="col-sm-2 col-sm-offset-1 col-xs-12">
 
-      <div class="container">
 
-          <div class="row">
-              <div class="col-lg-5 col-sm-6">
-                  <hr class="section-heading-spacer">
-                  <div class="clearfix"></div>
-                  <h2 class="section-heading">Google Web Fonts and<br>Font Awesome Icons</h2>
-                  <p class="lead">This template features the 'Lato' font, part of the <a target="_blank" href="http://www.google.com/fonts">Google Web Font library</a>, as well as <a target="_blank" href="http://fontawesome.io">icons from Font Awesome</a>.</p>
-              </div>
-              <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                  <img class="img-responsive" src="img/phones.png" alt="">
-              </div>
-          </div>
+                    </div>
+                    <div class="col-sm-2 col-xs-6 nav_col">
+                        <ul>
+                            <li><a href="https://slack.com/brand-guidelines">Brand Guidelines</a></li>
+                            <li><a href="https://slack.com/jobs">Jobs</a></li>
+                            <li><a href="http://slackatwork.com">Slack at Work</a></li>
+                            <li><a href="https://slack.zendesk.com/hc/en-us">Support</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-2 col-xs-6 nav_col">
+                        <ul>
+                            <li><a href="https://slack.com/privacy-policy">Privacy</a></li>
+                            <li><a href="https://slack.com/security">Security</a></li>
+                            <li><a href="https://slack.com/terms-of-service">Terms of Service</a></li>
+                            <li><a href="https://slack.com/policies">Policies</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-2 col-xs-6 nav_col">
+                        <ul>
+                            <li><a href="https://status.slack.com/">Status</a></li>
+                            <li><a href="https://api.slack.com/">API</a></li>
+                            <li><a href="https://slack.com/integrations">Integrations</a></li>
+                            <li><a href="https://slack.com/downloads">Download Apps</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-2 col-xs-6 nav_col">
+                        <ul>
+                            <li><a href="https://slack.com/varietypack">Podcast</a></li>
+                            <li><a href="http://slackhq.com">Blog</a></li>
+                            <li><a href="https://slack.com/help/contact">Contact Us</a></li>
+                            <li><a href="https://twitter.com/SlackHQ">@SlackHQ</a></li>
+                        </ul>
+                    </div>
 
-      </div>
-      <!-- /.container -->
 
-  </div>
-  <!-- /.content-section-a -->
-  <div class="banner">
+            </div>
+        </aside>
+    </header>
 
-      <div class="container">
 
-          <div class="row">
-              <div class="col-lg-6">
-                  <h2>Connect to Start Bootstrap:</h2>
-              </div>
-              <div class="col-lg-6">
-                  <ul class="list-inline banner-social-buttons">
-                      <li>
-                          <a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
-                      </li>
-                      <li>
-                          <a href="https://github.com/IronSummitMedia/startbootstrap" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
-                      </li>
-                      <li>
-                          <a href="#" class="btn btn-default btn-lg"><i class="fa fa-linkedin fa-fw"></i> <span class="network-name">Linkedin</span></a>
-                      </li>
-                  </ul>
-              </div>
-          </div>
 
-      </div>
-      <!-- /.container -->
 
-  </div>
-  <!-- /.banner -->
+    <!-- jQuery -->
+    <script src="/js/jquery.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery.easing.min.js"></script>
+    <script src="/js/jquery.fittext.js"></script>
+    <script src="/js/wow.min.js"></script>
+    <script src="/js/colorcode.js"></script>
+
+</body>
+
+</html>

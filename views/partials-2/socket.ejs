@@ -1,0 +1,22 @@
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+<script>
+  var socket = io.connect('http://localhost:3000');
+  $('form').submit(function(){
+    var companyName = $("#companyName").val();
+    var notification = "Accepted by " + companyName;
+    var user_id = $('#candidate_id').val();
+    socket.emit('notify', {notification: notification, userId: user_id});
+  });
+  socket.on('notify', function(msg){
+    var count = parseInt($('#notification').html());
+    count += 1;
+    $('#notification').html(count);
+    var $iElement = $("<i/>").addClass('fa fa-users text-aqua');
+    var $aElement = $("<a/>").append($iElement).append(msg.notification).attr('href', '#');
+    var $liElement = $("<li/>").append($aElement);
+
+
+    $('#addNotification').append($liElement);
+    // $('#addNotification').append('<li>Something</li>');
+  });
+</script>

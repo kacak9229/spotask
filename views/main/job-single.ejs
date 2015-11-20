@@ -1,236 +1,46 @@
 <% layout('blueprint-no') -%>
+<link rel="stylesheet" href="/css/all-jobs.css">
+<link rel="stylesheet" href="/css/search.css">
 
-        <link href="/css/style.css" rel="stylesheet">
-
-        <link rel="icon" href="/img/angellist.ico">
-
-    <body>
-
-      <input type="hidden" id="url_id" value="<%= job._id %>" />
-      <input type="hidden" id="csrf" name="_csrf" value="<%= _csrf %>" />
-        <section class="first-section">
-            <div class="head-img"></div>
-
-        </section>
-        <section class="second-section">
-            <div class="container">
-                <img class="thumb-img img-circle img-responsive" src="/img/thumb.jpg" >
-                <h1><%= job.title %></h1>
-                <ul class="list-unstyled">
-                    <li>
-                        <span>Hiring in Los Angeles</span>
-                    </li>
-                    <li>
-                        <span>11-50 Employees </span>
-                    </li>
-                    <li>
-                        <a href="#"> <i class="glyphicon glyphicon-globe"></i> gotinder.com </a>
-                    </li>
-                </ul>
-                <ul class="list-unstyled">
-
-                    <li>
-                        Candidates: <span id="totalCandidates"><%= job.totalCandidates %> </span>/ <%= job.candMax %>
-
-                    </li>
-                    <li>
-                      <% var alreadyApply = false;
-                      for(var i=0; i < job.candidates.length; i++) { %>
-                          <% if (String(user._id) === String(job.candidates[i].user)) { %>
-                             <% alreadyApply = true %>
-                          <% } %>
-                      <% } %>
-
-                      <% if (alreadyApply)  {%>
-                        <button type="submit" class="btn btn-success btn-lg" id="unapply"><span class="glyphicon glyphicon-ok"></span> Applied</button>
-                      <% } else { %>
-                        <button type="submit" class="btn btn-primary btn-lg" id="apply">Apply</button>
-                      <% } %>
-
-                    </li>
-                </ul>
-                <div class="col-md-8 col-sm-8 col-xs-12">
-                    <h3>Job description</h3>
-                    <p>Tinder is growing at a massive rate, and we are looking for a seasoned Android Engineer mobile to help us build our next generation Android app.The projects on our plate are amazing, and we're looking for talented people to meet the exciting technical challenges we face. If you're an intelligent and highly ambitious entrepreneur, we want to talk to you! (Just FYI, this position is located in our Los Angeles, CA office and we'll move you here!) </p>
-                    <p>In this Android Engineer Mobile role, you will:</p>
-
-                    <p>Develop new features and fix bugs for the Tinder Android app
-                        <br />Work closely with Backend Engineers to deploy exciting new Tinder features
-                        <br />Work with graphics team to design and wireframe modern interfaces
-                        <br />We&#x27;re looking for:</p>
-
-                    <p>2+ years experience developing rich Android  mobile consumer facing apps
-                        <br />Expert level experience with the Android SDK
-                        <br />Experience with RESTful API’s and asynchronous web services
-                        <br />Experience with Android animations
-                        <br />Familiarity with design concepts
-                        <br />Experience with agile methodologies
-                        <br />Strong object-oriented and architectural skills
-                        <br />Experience with Git
-                        <br />Excellent communication and collaborative skills
-                        <br />Very strong or expert in Java
-                        <br />Bonus points if you have:</p>
-
-                    <p>Worked on apps used by millions of people
-                        <br />Experience with Google Glass or Galaxy Gear
-                        <br />Experience with QMTT and/or socket based web connections on mobile
-                        <br />A BS or MS in Computer Science or Engineering from a top school, but a wonderful project list trumps all
-                        <br />Prior startup experience is fantastic (but not necessary); being scrappy will help you hit the ground running.
-                        <br />What&#x27;s in it for you:</p>
-
-                    <p>Competitive salary plus hefty equity compensation
-                        <br />Phenomenal health coverage, 401K, gym discounts, software discounts, free drinks, snacks, and a lot more
-                        <br />Lunch everyday!
-                        <br />All the hardware/software/equipment you need, customized however you like</p>
-
-                </div>
-                <div class="col-md-4 col-sm-4 col-xm-12">
-                    <h3>SKILLS</h3>
-                    <span>Java, Mobile, Android</span>
-                    <h3>COMPENSATION</h3>
-                    <p>$100K – $175K Salary </p>
-                    <p>0.0% – 0.1% Equity</p>
-                    <h3>VISA SPONSORSHIP</h3>
-                    <span>Not available</span>
-
-                </div>
-            </div>
-        </section>
-        <section class="third-section">
-            <div class="container">
-                <h3>WHY US?</h3>
-                <span>
-                    We're a small team that's growing fast! The projects on our plate are amazing, and we're facing really interesting technical challenges.
-
-                    &nbsp;
-                </span>
-                <a><span>
-                        Read More...
-                    </span></a>
-            </div>
-        </section>
-        <section class="fourth-section">
-            <div class="container">
-                <h2>MORE JOBS AT TINDER</h2>
-
-                <table class="table">
-
-                    <tbody>
-                        <tr>
-                            <td>ROLE</td>
-                            <td>LOCATION</td>
-                            <td>TYPE</td>
-                            <td>SALARY / EQUITY</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td><a href="#">Analytics Data Engineer</a></td>
-                            <td>Los Angeles</td>
-                            <td>Full Time</td>
-                            <td><p>$80K – $160K</p><p>0.0% – 0.05%</p></td>
-                            <td><a class="btn btn-blue" href="#"> Apply</a></td>
-                        </tr>
-                        <tr>
-                            <td><a href="#">iOS Engineer</a></td>
-                            <td>Los Angeles</td>
-                            <td>Full Time</td>
-                            <td><p>$80K – $160K</p><p>0.0% – 0.05%</p></td>
-                            <td><a class="btn btn-blue" href="#"> Apply</a></td>
-                        </tr>
-                        <tr>
-                            <td><a href="#">Backend Node.js Engineer</a></td>
-                            <td>Los Angeles</td>
-                            <td>Full Time</td>
-                            <td><p>$80K – $160K</p><p>0.0% – 0.05%</p></td>
-                            <td><a class="btn btn-blue" href="#"> Apply</a></td>
-                        </tr>
-                        <tr>
-                            <td><a href="#">Data Engineer (Analytics)</a></td>
-                            <td>Los Angeles</td>
-                            <td>Full Time</td>
-                            <td><p>$80K – $160K</p><p>0.0% – 0.05%</p></td>
-                            <td><a class="btn btn-blue" href="#"> Apply</a></td>
-                        </tr>
-                        <tr>
-                            <td><a href="#">Systems Engineer ( Devops)</a></td>
-                            <td>Los Angeles</td>
-                            <td>Full Time</td>
-                            <td><p>$80K – $160K</p><p>0.0% – 0.05%</p></td>
-                            <td><a class="btn btn-blue" href="#"> Apply</a></td>
-                        </tr>
-                        <tr>
-                            <td><a href="#">Security Engineer</a></td>
-                            <td>Los Angeles</td>
-                            <td>Full Time</td>
-                            <td><p>$80K – $160K</p><p>0.0% – 0.05%</p></td>
-                            <td><a class="btn btn-blue" href="#"> Apply</a></td>
-                        </tr>
-                        <tr>
-                            <td><a href="#">Senior Recruiter</a></td>
-                            <td>Los Angeles</td>
-                            <td>Full Time</td>
-                            <td><p>$80K – $160K</p><p>0.0% – 0.05%</p></td>
-                            <td><a class="btn btn-blue" href="#"> Apply</a></td>
-                        </tr>
-
-                    </tbody>
-                </table>
-
-            </div>
-        </section>
-        <section class="fifth-section">
-            <div class="container">
-                <h2>ALSO HIRING</h2>
-                <h1>Tinder is one of</h1>
-                <h1>15,127 startups hiring on AngelList</h1>
-                <span> <a class="btn btn-lg btn-simple" href="">Browse All Startup Jobs</a></span>
-                <span> <a class="btn btn-lg btn-simple" href="">Post a Job</a></span>
-
-            </div>
-        </section>
-        <footer class="footer-section">
-            <span><a href="" >Help</a></span>
-            <span><a href="" >Terms</a></span>
-            <span> Problem?<a href="" >Report this company</a></span>
-        </footer>
+<input type="hidden" id="url_id" value="<%= job._id %>" />
+<input type="hidden" id="csrf" name="_csrf" value="<%= _csrf %>" />
+<div class="jumbotron" style="background: #3498db;
+    color: white;">
+  <div class="container">
+  <p class="text-center"><img src="<%= job.company.profile.picture %>" class="img-circle"></p>
+  <h1 class="text-center"><b><%= job.title %></b></h1>
+  <h2 class="text-center">$<%= job.salary %></h2>
+  <h3 class="text-center"><span>Candidates <span id="totalCandidates"><%= job.totalCandidates %></span> / <%= job.candMax %></span></h3>
+  <p class="lead text-center">
 
 
-<div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">You need to sign up to reach out to Tinder</h4>
-      </div>
-      <div class="modal-body apply">
-         <textarea class="form-control" rows="3"></textarea>
-      </div>
-      <div class="modal-footer">
-
-          <span><a href="" class="btn btn-primary"> Apply</a></span>
-
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+      <% var alreadyApply = false;
+      for(var i=0; i < job.candidates.length; i++) { %>
+          <% if (String(user._id) === String(job.candidates[i].user)) { %>
+             <% alreadyApply = true %>
+          <% } %>
+      <% } %>
 
 
-<div class="modal fade " id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content share">
-
-      <div class="modal-body  share">
-    <textarea class="form-control" rows="3"></textarea>
-
-      </div>
-
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+      <% if (alreadyApply)  {%>
+        <button type="submit" class="btn btn-success btn-lg" id="unapply"><span class="glyphicon glyphicon-ok"></span> Applied</button>
+      <% } else { %>
+        <button type="submit" class="btn btn-warning btn-lg" id="apply">Apply</button>
+      <% } %>
 
 
-        <!-- Bootstrap core JavaScript
-================================================== -->
+  </p>
+</div>
+</div>
 
-    </body>
-</html>
+
+
+
+  <div style="margin-top: 3%; margin-bottom: 100px" class="container">
+    <div class="text-center">
+      <h1>What you have to do</h1>
+      <h3><%= job.body %></h3>
+
+    </div>
+
+  </div>

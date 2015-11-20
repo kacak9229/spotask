@@ -50,11 +50,6 @@ passport.use('local-login', new LocalStrategy({
 
     }));
 
-
-/* Oauth overview
-
-*/
-
 /*
   Facebook Strategy
 */
@@ -115,7 +110,7 @@ exports.requireRole = function(role) {
         if(req.user && req.user.role === role)
             next();
         else
-            res.send(403);
+            res.render('errors/404');
     }
 }
 
@@ -136,9 +131,18 @@ exports.checkResume = function(req, res, next) {
     return res.redirect('/no-resume');
   } else if (req.isAuthenticated() && req.user.role === 'user'){
     return next();
-  } else if (req.user.role === 'company'){
-    return res.redirect('/company-login');
   } else {
     return res.redirect('/login');
   }
+}
+
+exports.checkResumeAgain = function(req, res, next) {
+  var skills = req.user.resume.skills.length === 0;
+  var edu = req.user.resume.educations.length === 0;
+  if (req.isAuthenticated() && (edu && skills ) && req.user.role === 'user') {
+    return res.redirect('/no-resume');
+  } else {
+    return res.redirect('/');
+  }
+
 }

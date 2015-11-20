@@ -59,18 +59,20 @@
               <!-- Menu toggle button -->
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-bell-o"></i>
-                <span class="label label-warning">10</span>
+                <span id='notification' class="label label-warning"><%= user.notifications.length %></span>
               </a>
               <ul class="dropdown-menu">
-                <li class="header">You have 10 notifications</li>
+                <li class="header">You have <%= user.notifications.length %> notifications</li>
                 <li>
                   <!-- Inner Menu: contains the notifications -->
-                  <ul class="menu">
+                  <ul class="menu" id="addNotification">
+                    <% for(var i=0; i < user.notifications.length; i++)  { %>
                     <li><!-- start notification -->
                       <a href="#">
-                        <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                        <i class="fa fa-users text-aqua"></i> <%= user.notifications[i] %>
                       </a>
                     </li><!-- end notification -->
+                    <% } %>
                   </ul>
                 </li>
                 <li class="footer"><a href="#">View all</a></li>
@@ -92,7 +94,7 @@
                   <img src="<%= user.profile.picture %>" class="img-circle" alt="User Image">
                   <p>
                     <%= user.profile.name %>
-                    <small>Member since Nov. 2012</small>
+                    <!-- <small>Member since Nov. 2012</small> -->
                   </p>
                 </li>
                 <!-- Menu Body -->
@@ -101,7 +103,7 @@
                     <a href="/resume">Resume</a>
                   </div>
                   <div class="col-xs-4 text-center">
-                    <a href="#">Sales</a>
+
                   </div>
                   <div class="col-xs-4 text-center">
                     <a href="#">Friends</a>

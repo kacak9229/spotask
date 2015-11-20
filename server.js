@@ -16,10 +16,23 @@ var flash = require('express-flash');
 var expressValidator = require('express-validator');
 var path = require('path');
 var passport = require('passport');
+var passportSocketIo = require('passport.socketio');
+
+function onAuthorizeSuccess(data, accept){
+  console.log('successful connection to socket.io');
+  accept(); //Let the user through
+}
+
+function onAuthorizeFail(data, message, error, accept){
+  if(error) accept(new Error(message));
+  console.log('failed connection to socket.io:', message);
+  accept(null, false);
+}
 
 /*
 API keys and Passport configuration
 */
+var User = require('./models/user');
 var secret = require('./config/secret');
 
 
@@ -40,6 +53,7 @@ mongoose.connect(secret.database, function(err) {
   }
 });
 
+var sessionStore = new MongoStore({ url: secret.database, autoReconnect: true })
 /*
 Express configuration
 */
@@ -56,7 +70,7 @@ app.use(session({
   resave: true,
   saveUninitialized: true,
   secret: secret.sessionSecret,
-  store: new MongoStore({ url: secret.database, autoReconnect: true })
+  store: sessionStore
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -79,6 +93,24 @@ var userRoute = require('./routes/user');
 var companyRoute = require('./routes/company');
 var resumeRoute = require('./routes/resume');
 var adminRoute = require('./routes/admin');
+
+io.on('connection', function(socket){
+  socket.on('notify', function(msg){
+
+      User.findById({ _id: msg.userId}, function(err, found) {
+        if (typeof found === 'undefined') {
+          // Do something but what should I do?s
+        } else {
+          found.notifications.push(msg.notification);
+          found.save(function(err) {
+            if (err) throw err;
+            console.log(msg.count);
+            io.emit('notify', {notification: msg.notification});
+          });
+        }
+      });
+  });
+});
 
 app.use(main);
 app.use(userRoute);
