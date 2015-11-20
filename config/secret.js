@@ -1,7 +1,7 @@
 module.exports = {
 
-	database: "mongodb://localhost/spotask",
-
+	// database: "mongodb://localhost/spotask",
+	database: "mongodb://<dbuser>:<dbpassword>@ds057214.mongolab.com:57214/spotaskv1",
 	sessionSecret: "This is my secret mofo",
 
 	facebook: {
@@ -11,6 +11,6 @@ module.exports = {
     	callbackURL: 'http://localhost:3000/auth/facebook/callback',
     	passReqToCallback: true
 
-  	}	
+  	}
 
 }
