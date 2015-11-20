@@ -118,10 +118,6 @@ app.use(companyRoute);
 app.use(resumeRoute);
 app.use(adminRoute);
 
-http.listen(3000, function(err) {
-  if (err) {
-    console.log('Error running express server');
-  } else {
-    console.log('Running on port 3000');
-  }
+http.listen(process.env.PORT || 3000, function(){
+  console.log('listening on', http.address().port);
 });

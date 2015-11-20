@@ -1,7 +1,7 @@
 module.exports = {
 
 	// database: "mongodb://localhost/spotask",
-	database: "mongodb://<dbuser>:<dbpassword>@ds057214.mongolab.com:57214/spotaskv1",
+	database: "mongodb://root:abc123@ds057214.mongolab.com:57214/spotaskv1",
 	sessionSecret: "This is my secret mofo",
 
 	facebook: {
