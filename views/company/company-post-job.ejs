@@ -1,0 +1,51 @@
+<% layout('blueprint-no') -%>
+
+<!-- quick email widget -->
+<div class="box box-info">
+  <div class="box-header">
+    <i class="fa fa-envelope"></i>
+    <h3 class="box-title">Post a job</h3>
+    <!-- tools box -->
+
+  </div>
+  <div class="box-body">
+    <form action="/create-job" method="post">
+
+      <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+
+
+      <select name="category" class="selectpicker">
+        <option value="Select Categories">Select Categories</option>
+        <% for(var i = 0; i < categories.length ; i++) { %>
+          <option value="<%= categories[i]._id %>"><%= categories[i].name %></option>
+          <% } %>
+      </select>
+
+      <select name="candMax" class="selectpicker">
+        <option value="Select Categories">Candidates needed</option>
+        <% for(var i = 1; i <= 20 ; i++) { %>
+          <option value="<%= i %>"><%= i %></option>
+          <% } %>
+      </select>
+
+      <br />
+      <br />
+      <div class="form-group">
+        <label for="name">Job Title:</label>
+        <input type="text" class="form-control" name="title">
+      </div>
+
+      <div class="form-group">
+        <label for="salary">Salary:</label>
+        <input type="text" class="form-control" name="salary">
+      </div>
+      <div>
+        <textarea class="textarea" name="body" placeholder="Description about the job" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+      </div>
+      <div class="box-footer clearfix">
+        <button class="pull-right btn btn-primary" id="sendEmail">Submit Job <i class="fa fa-arrow-circle-right"></i></button>
+      </div>
+    </form>
+  </div>
+
+</div>
