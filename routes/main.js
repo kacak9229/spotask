@@ -16,7 +16,7 @@ router.get('/', function(req, res) {
 		} else if (req.user && req.user.role === 'company'){
 			return res.redirect('/company-profile');
 		} else {
-			res.render('main/home');
+			return res.render('main/home');
 		}
 });
 

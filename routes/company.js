@@ -10,16 +10,13 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 router.use(function(req, res, next) {
-	if (req.user) {
 		Job.find({ company: req.user._id}, function(err, jobs) {
-
 			res.locals.jobs = jobs;
 			next();
 		});
-	} else {
-		return res.redirect('/');
-	}
 });
+
+
 
 router.get('/create-job', function(req, res, next) {
 	res.render('post-job');

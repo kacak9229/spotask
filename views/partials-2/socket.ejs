@@ -1,6 +1,6 @@
 <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 <script>
-  var socket = io.connect('http://localhost:3000');
+  var socket = io.connect('http://spotask.herokuapp.com:3000');
   $('form').submit(function(){
     var companyName = $("#companyName").val();
     var notification = "Accepted by " + companyName;
